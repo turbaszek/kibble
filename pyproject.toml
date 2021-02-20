@@ -15,11 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
+[tool.black]
+line-length = 110
+target-version = ['py38']
 
-def main():
-    """Main executable function"""
-    print("Hello from Kibble!")
-
-
-if __name__ == "__main__":
-    main()
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-rasl"
+testpaths = [
+    "tests",
+]
+faulthandler_timeout = 480
+log_level = "INFO"
+color = "yes"

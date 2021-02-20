@@ -15,4 +15,20 @@
 # specific language governing permissions and limitations
 # under the License.
 
-version = "1.0.0dev"
+__all__ = ["version"]
+
+try:
+    import importlib_metadata as metadata
+except ImportError:
+    from importlib import metadata
+
+try:
+    version = metadata.version("apache-kibble")
+except metadata.PackageNotFoundError:
+    import logging
+
+    log = logging.getLogger(__name__)
+    log.warning("Package metadata could not be found. Overriding it with version found in setup.py")
+    from setup import VERSION as version
+
+del metadata

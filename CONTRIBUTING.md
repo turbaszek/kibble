@@ -1,52 +1,55 @@
-# Contributing to Kibble #
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ -->
+
+# Contributing to Apache Kibble
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of contents**
+
+- [Community](#community)
+- [Development installation](#development-installation)
+- [Code Quality](#code-quality)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 ## Community
 
 The main development and design discussion happens on our mailing lists.
 We have a list specifically for development, and one for future user questions and feedback.
 
-To join in the discussion on the design and roadmap, you can send an email to [dev@kibble.apache.org](mailto:dev@kibble.apache.org).<br/>
+To join in the discussion on the design and roadmap, you can send email to [dev@kibble.apache.org](mailto:dev@kibble.apache.org).<br/>
 You can subscribe to the list by sending an email to [dev-subscribe@kibble.apache.org](mailto:dev-subscribe@kibble.apache.org).<br/>
 You can also browse the archives online at [lists.apache.org](https://lists.apache.org/list.html?dev@kibble.apache.org).
 
 We also have:
+
 - IRC channel, #kibble on [Freenode](https://webchat.freenode.net/?channels=#kibble)
 - Slack channel, #kibble on [ASF slack](https://s.apache.org/slack-invite)
 
 ## Development installation
 
 You should be able to install Apache Kibble by simply doing:
+
 ```
 pip install -e ."[devel]"
-```
-
-The easiest option to spin up a development environment is to use our development docker-compose.
-The development image has mounted all Kibble sources so all your local code changes will be automatically
-reflected  in the running app.
-
-First you need to configure the Elasticsearch node:
-```
-docker-compose -f docker-compose-dev.yaml run kibble setup --autoadmin --skiponexist
-```
-Once you see the
-```
-setup_1          | All done, Kibble should...work now :)
-```
-Now you can can launch Apache Kibble ui:
-```
-docker-compose -f docker-compose-dev.yaml up ui
-```
-The ui should be available under `http://0.0.0.0:8000` or `http://localhost:8000`. To log in you can use
-the dummy admin account `admin@kibble` and password `kibbleAdmin`.
-
-You can also start only the API server:
-```
-docker-compose -f docker-compose-dev.yaml up kibble
-```
-
-To run scanning:
-```
-docker-compose -f docker-compose-dev.yaml run kibble scan
 ```
 
 ## Code Quality
@@ -55,22 +58,28 @@ Apache Kibble project is using [pre-commits](https://pre-commit.com) to ensure t
 We encourage you to use pre-commits, but it's not required in order to contribute. Every change is checked
 on CI and if it does not pass the tests it cannot be accepted. If you want to check locally then
 you should install Python3.6 or newer together and run:
+
 ```bash
 pip install pre-commit
 # or
 brew install pre-commit
 ```
-For more installation options visit the [pre-commits](https://pre-commit.com).
 
+For more installation options visit the [pre-commits](https://pre-commit.com).
 To turn on pre-commit checks for commit operations in git, run:
+
 ```bash
 pre-commit install
 ```
+
 To run all checks on your staged files, run:
+
 ```bash
 pre-commit run
 ```
+
 To run all checks on all files, run:
+
 ```bash
 pre-commit run --all-files
 ```

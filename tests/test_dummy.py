@@ -16,10 +16,5 @@
 # under the License.
 
 
-def main():
-    """Main executable function"""
-    print("Hello from Kibble!")
-
-
-if __name__ == "__main__":
-    main()
+def test_dummy():
+    assert bool("foo") is True

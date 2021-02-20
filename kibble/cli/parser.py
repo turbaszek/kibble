@@ -15,26 +15,23 @@
 # specific language governing permissions and limitations
 # under the License.
 
-FROM python:3.8
+import click
 
-ENV KIBBLE_DIR="/opt/kibble"
+from kibble.cli.commands.config_command import config_group
+from kibble.cli.commands.db_command import db_group
+from kibble.cli.commands.scanners_command import scanners_group
+from kibble.cli.commands.server_command import server_group
+from kibble.cli.commands.version_command import version_cmd
 
-# Install some dependencies
-RUN apt-get update \
-    && apt-get install dumb-init
 
-# Copy all sources (we use .dockerignore for excluding)
-ADD . ${KIBBLE_DIR}
+@click.group()
+def cli():
+    """Manage and configure Apache Kibble instance."""
 
-# Install kibble and required dev dependencies
-WORKDIR ${KIBBLE_DIR}
 
-RUN pip install --upgrade pip
-RUN pip install -e ".[devel]"
-
-# Run sanity check
-RUN kibble --help
-
-# Use dumb-init as entrypoint to improve signal handling
-# https://github.com/Yelp/dumb-init
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+# Try to keep this list sorted A-Z
+cli.add_command(config_group)
+cli.add_command(db_group)
+cli.add_command(server_group)
+cli.add_command(scanners_group)
+cli.add_command(version_cmd)

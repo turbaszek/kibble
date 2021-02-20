@@ -14,27 +14,43 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
+#
+---
+# MD004/ul-style
+MD004: false
 
-FROM python:3.8
+# MD007/ul-indent
+MD007: false
 
-ENV KIBBLE_DIR="/opt/kibble"
+# MD012/no-multiple-blanks
+MD012: false
 
-# Install some dependencies
-RUN apt-get update \
-    && apt-get install dumb-init
+# MD013 Line length
+MD013: false
 
-# Copy all sources (we use .dockerignore for excluding)
-ADD . ${KIBBLE_DIR}
+# MD024/no-duplicate-heading/no-duplicate-header
+MD024: false
 
-# Install kibble and required dev dependencies
-WORKDIR ${KIBBLE_DIR}
+# MD026/no-trailing-punctuation
+MD026: false
 
-RUN pip install --upgrade pip
-RUN pip install -e ".[devel]"
+# MD029/ol-prefix
+MD029: false
 
-# Run sanity check
-RUN kibble --help
+# MD030/list-marker-space
+MD030: false
 
-# Use dumb-init as entrypoint to improve signal handling
-# https://github.com/Yelp/dumb-init
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+# MD033/no-inline-html
+MD033: false
+
+# MD034/no-bare-urls
+MD034: false
+
+# MD036/no-emphasis-as-heading/no-emphasis-as-header
+MD036: false
+
+# MD040/fenced-code-language
+MD040: false
+
+# MD041/first-line-heading/first-line-h1
+MD041: false

@@ -13,8 +13,6 @@ We are happy that you are using Kibble.
 Please follow below steps when submitting the issue.
 Check our other issues -- maybe similar issue is already reported.
 
-Please, delete comment block before submitting.
-
 Thank you and have a nice day!
 Kibble team
 -->

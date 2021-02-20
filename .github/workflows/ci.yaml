@@ -16,9 +16,11 @@
 # under the License.
 ---
 name: CI
-on:
-  - push
-  - pull_request
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
 
 jobs:
   statics:
@@ -27,20 +29,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - uses: pre-commit/action@v1.0.1
+      - run: pip install '.[devel]'
+      - uses: pre-commit/action@v2.0.0
         with:
           extra_args: --show-diff-on-failure
-  build-docker:
-    name: Build kibble dev image
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build docker image
-        run: docker-compose -f docker-compose-dev.yaml build kibble
-      - name: Run kibble command
-        run: docker run apache/kibble kibble --help
-      - name: Check dependencies
-        run: docker run apache/kibble pip check
   run-tests:
     name: Run Tests
     runs-on: ubuntu-latest
@@ -50,4 +42,4 @@ jobs:
         with:
           python-version: '3.8'
       - run: pip install '.[devel]'
-      - run: pytest tests --color=yes
+      - run: pytest tests

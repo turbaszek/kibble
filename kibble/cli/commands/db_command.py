@@ -15,26 +15,35 @@
 # specific language governing permissions and limitations
 # under the License.
 
-FROM python:3.8
+__all__ = ["db_group"]
 
-ENV KIBBLE_DIR="/opt/kibble"
+import click
 
-# Install some dependencies
-RUN apt-get update \
-    && apt-get install dumb-init
 
-# Copy all sources (we use .dockerignore for excluding)
-ADD . ${KIBBLE_DIR}
+@click.group(name="db")
+def db_group():
+    """Manage database"""
 
-# Install kibble and required dev dependencies
-WORKDIR ${KIBBLE_DIR}
 
-RUN pip install --upgrade pip
-RUN pip install -e ".[devel]"
+@db_group.command()
+def init():
+    """Initialize database"""
+    click.echo("To be implemented!")
 
-# Run sanity check
-RUN kibble --help
 
-# Use dumb-init as entrypoint to improve signal handling
-# https://github.com/Yelp/dumb-init
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+def _abort_reset(ctx, _, value):
+    if not value:
+        ctx.abort()
+
+
+@db_group.command()
+@click.option(
+    "--yes",
+    is_flag=True,
+    callback=_abort_reset,
+    expose_value=False,
+    prompt="This will reset database. Do you want to continue?",
+)
+def reset():
+    """Reset database"""
+    click.echo("To be implemented!")

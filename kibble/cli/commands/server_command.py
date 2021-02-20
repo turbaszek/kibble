@@ -15,26 +15,17 @@
 # specific language governing permissions and limitations
 # under the License.
 
-FROM python:3.8
+__all__ = ["server_group"]
 
-ENV KIBBLE_DIR="/opt/kibble"
+import click
 
-# Install some dependencies
-RUN apt-get update \
-    && apt-get install dumb-init
 
-# Copy all sources (we use .dockerignore for excluding)
-ADD . ${KIBBLE_DIR}
+@click.group(name="server")
+def server_group():
+    """API server commands"""
 
-# Install kibble and required dev dependencies
-WORKDIR ${KIBBLE_DIR}
 
-RUN pip install --upgrade pip
-RUN pip install -e ".[devel]"
-
-# Run sanity check
-RUN kibble --help
-
-# Use dumb-init as entrypoint to improve signal handling
-# https://github.com/Yelp/dumb-init
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+@server_group.command()
+def start():
+    """Start API server"""
+    click.echo("To be implemented!")

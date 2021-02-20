@@ -1,27 +1,69 @@
-<p align="center"><img src="/ui/images/kibble-logo.png" width="300"/></p>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ -->
+
+<p align="center"><img src="/images/kibble-logo.png" width="300"/></p>
 
 # Apache Kibble
+
 ![CI](https://github.com/apache/kibble/workflows/CI/badge.svg)
 [![License](http://img.shields.io/:license-Apache%202-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 Apache Kibble is a tool to collect, aggregate and visualize data about any software project that uses commonly known
-tools. It consists of two components:
+tools.
 
-- **Kibble Server** - main database and UI Server. It serves as the hub
- for the scanners to connect to, and provides the overall management of sources as well as the
- visualizations and API end points.
-- **Kibble Scanners** - a collection of
- scanning applications each designed to work with a specific type of resource (git repo, mailing list,
- JIRA, etc) and push compiled data objects to the Kibble Server.
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of contents**
+
+- [Documentation](#documentation)
+- [Live demo](#live-demo)
+- [Installation](#installation)
+- [Contributing](#contributing)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Documentation
 
 For information about the Kibble project and community, visit our
-web site at [https://kibble.apache.org/](https://kibble.apache.org/).
+website at [https://kibble.apache.org/](https://kibble.apache.org/).
+
+<!-- AUTO_CLI_STAR -->
+```
+  Usage: kibble [OPTIONS] COMMAND [ARGS]...
+
+    Manage and configure Apache Kibble instance.
+
+  Options:
+    --help  Show this message and exit.
+
+  Commands:
+    config    Access configuration
+    db        Manage database
+    scanners  Configure and trigger scanners
+    server    API server commands
+    version   Show Kibble version
+```
+<!-- AUTO_CLI_END -->
 
 ## Live demo
 
-If you would love to try Kibble without installing it on your own machine try the online demo of the Kibble
+If you want to try Kibble without installing it on your own machine try the online demo of the Kibble
 service: [https://demo.kibble.apache.org/](https://demo.kibble.apache.org/).
 
 

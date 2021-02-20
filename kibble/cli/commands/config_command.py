@@ -15,26 +15,17 @@
 # specific language governing permissions and limitations
 # under the License.
 
-FROM python:3.8
+import click
 
-ENV KIBBLE_DIR="/opt/kibble"
+__all__ = ["config_group"]
 
-# Install some dependencies
-RUN apt-get update \
-    && apt-get install dumb-init
 
-# Copy all sources (we use .dockerignore for excluding)
-ADD . ${KIBBLE_DIR}
+@click.group(name="config")
+def config_group():
+    """Access configuration"""
 
-# Install kibble and required dev dependencies
-WORKDIR ${KIBBLE_DIR}
 
-RUN pip install --upgrade pip
-RUN pip install -e ".[devel]"
-
-# Run sanity check
-RUN kibble --help
-
-# Use dumb-init as entrypoint to improve signal handling
-# https://github.com/Yelp/dumb-init
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+@config_group.command()
+def show():
+    """Shows configuration"""
+    click.echo("To be implemented!")

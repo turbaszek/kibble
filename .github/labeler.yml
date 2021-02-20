@@ -1,3 +1,4 @@
+---
 area:api:
   - 'kibble/api/*'
 

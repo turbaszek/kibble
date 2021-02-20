@@ -15,26 +15,17 @@
 # specific language governing permissions and limitations
 # under the License.
 
-FROM python:3.8
+from click.testing import CliRunner
 
-ENV KIBBLE_DIR="/opt/kibble"
+from kibble.cli.parser import cli
 
-# Install some dependencies
-RUN apt-get update \
-    && apt-get install dumb-init
 
-# Copy all sources (we use .dockerignore for excluding)
-ADD . ${KIBBLE_DIR}
+class TestCliParser:
+    def test_commands_are_sorted_in_cli(self):
+        cmds = cli.list_commands(None)
+        assert cmds == sorted(cmds)
 
-# Install kibble and required dev dependencies
-WORKDIR ${KIBBLE_DIR}
-
-RUN pip install --upgrade pip
-RUN pip install -e ".[devel]"
-
-# Run sanity check
-RUN kibble --help
-
-# Use dumb-init as entrypoint to improve signal handling
-# https://github.com/Yelp/dumb-init
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+    def test_commands(self):
+        runner = CliRunner()
+        result = runner.invoke(cli)
+        assert result.exit_code == 0

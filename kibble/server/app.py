@@ -14,24 +14,17 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-from unittest import mock
 
-from click.testing import CliRunner
-
-from kibble.cli.commands.server_command import server_group
+from fastapi import FastAPI
 
 
-class TestWebserverCommand:
-    @mock.patch("kibble.cli.commands.server_command.uvicorn")
-    def test_start(self, mock_uvicorn):
-        runner = CliRunner()
-        result = runner.invoke(server_group, ["start"])
+def create_app() -> FastAPI:
+    """Creates API server app"""
+    app = FastAPI()
 
-        mock_uvicorn.run.assert_called_once_with(
-            app="kibble.server.app:create_app",
-            factory=True,
-            host="127.0.0.1",
-            port=1324,
-            log_level="info",
-        )
-        assert result.exit_code == 0
+    @app.get("/health")
+    async def health_check():  # pylint: disable=unused-variable
+        """Health check endpoint"""
+        return {"Status": "OK"}
+
+    return app

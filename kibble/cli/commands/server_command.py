@@ -15,9 +15,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
-import click
-
 __all__ = ["server_group"]
+
+import click
+import uvicorn
+
+from kibble.utils.ascii import KIBBLE_ASCII
 
 
 @click.group(name="server")
@@ -28,4 +31,16 @@ def server_group():
 @server_group.command()
 def start():
     """Start API server"""
-    click.echo("To be implemented!")
+    click.echo(KIBBLE_ASCII)
+    click.echo("Using unvicorn for development.\n")
+    click.echo("For production deployment consider using gunicorn server:\n")
+    click.echo('  gunicorn "kibble.server.app:create_app()" -k "uvicorn.workers.UvicornWorker"')
+    click.echo()
+
+    uvicorn.run(
+        app="kibble.server.app:create_app",
+        factory=True,
+        host="127.0.0.1",
+        port=1324,
+        log_level="info",
+    )
